@@ -1,11 +1,13 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../lib/actions";
 
-const Modal = ({ item, addToCart, count }) => {
+const Modal = ({ item }) => {
+    const dispatch = useDispatch();
     const [qty, setQty] = useState(1);
-  //   const dispatch = useDispatch()
   
     const add = (item, quantity) => {
-      // dispatch(addtoCart(item, quantity))
+      dispatch(addToCart(item, quantity))
     }
     return (
       <div
@@ -84,7 +86,7 @@ const Modal = ({ item, addToCart, count }) => {
                 type="button"
                 class="btn btn-success"
                 data-dismiss="modal"
-                onClick={()=> addToCart(count+1)} >
+                onClick={()=> add(item, qty)} >
                 Add to Cart
               </button>
             </div>

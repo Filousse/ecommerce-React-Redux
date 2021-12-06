@@ -24,9 +24,10 @@ export function updateCart(item, quantity) {
     }
 }
 
-export function removeFromCart(item) {
+export function removeFromCart(id) {
+    console.log("id from acrions" ,id)
     return {
         type: actions.REMOVE_FROM_CART,
-        payload : item
+        payload : id
     }
 }
