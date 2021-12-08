@@ -8,9 +8,7 @@ import "../../styles/app.css";
 import { list } from "../../data"
 
 
-const App = props => {
-  const { items  } = props
-  const [count, setCount] = useState(0);
+const App = () => {
   const [category, setCategory] = useState(0);
   const [isFiltering, setFiltering] = useState(false);
   const [isFiltered, setFilted] = useState(false);
@@ -28,7 +26,7 @@ const App = props => {
   return (
     <Fragment>
       <Router>
-        <Navbar filter={filterResults} setFiltering={setFiltering} count={count} />
+        <Navbar filter={filterResults} setFiltering={setFiltering} />
         {/* routes */}
         <Route exact path="/" component={() =>
           <Home

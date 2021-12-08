@@ -8,7 +8,7 @@ const SideMenu = ({ loadCategory, category }) => {
         <div className="col-sm-2 sidebar">
             <ul>
                 {links.map((link, index) => {
-                    return (<li className={category == index && "active"} key={index} onClick={() => loadCategory(index)}>{link}</li>)
+                    return (<li className={category == index ? "active":"sideMenu"} key={index} onClick={() => loadCategory(index)}>{link}</li>)
                 })}
             </ul>
         </div>

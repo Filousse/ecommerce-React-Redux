@@ -5,10 +5,11 @@ import { addToCart } from "../lib/actions";
 const Modal = ({ item }) => {
     const dispatch = useDispatch();
     const [qty, setQty] = useState(1);
-  
+    
     const add = (item, quantity) => {
       dispatch(addToCart(item, quantity))
     }
+
     return (
       <div
         class="modal fade "

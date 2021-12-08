@@ -8,13 +8,16 @@ const Row = (props) => {
   const item = details;
   const [ qty, setQty ] = useState(quantity)
   const dispatch = useDispatch();
-  const update = (item, quantity) => {
-    dispatch(updateCart(item, quantity))
+  const update = (action) => {
+    if (action === "increment") { setQty(qty +1) }
+    if (action === "decrement") { setQty(qty -1) }
   }
   const remove = (id) => {
-    console.log(id)
     dispatch(removeFromCart(id))
   }
+  useEffect(() => {
+    dispatch(updateCart(id, qty))
+  }, [qty])
 
     return (
       <tr>
@@ -34,10 +37,7 @@ const Row = (props) => {
               type="button"
               className="btn btn-secondary"
               onClick={() => {
-                if (qty > 1) {
-                  setQty(qty -1)
-                  update(item, qty)
-                }
+                if (qty > 1) { update("decrement")}
               }}
               >
               -
@@ -46,10 +46,7 @@ const Row = (props) => {
             <button
               type="button"
               className="btn btn-secondary"
-                onClick={() =>  {
-                  setQty(qty + 1)
-                  update(item, qty)
-                }}
+                onClick={() => { update("increment") }}
               >
               +
             </button>
@@ -73,10 +70,6 @@ const Row = (props) => {
 
 const Table = () => {
   const items = useSelector(state => state.items)
-  useEffect(() => {
-    console.log(`tu as ${items.length} dans le cart!`)
-    
-  })
     return (
       <table>
         <tr>
@@ -94,12 +87,25 @@ const Table = () => {
   }
 
 const CartPage = () => {
+  const items = useSelector(state => state.items)
+  const [ total, setTotal ] = useState(0.00)
+  const [ subTotal, setSubTotal ] = useState(0.00)
+  const shipping = 10.00
+
+  useEffect(()=> {
+    let totals = items.map((item)=> {
+      return item.quantity * item.details.price
+    })
+    setSubTotal(totals.reduce((item1, item2) => item1 + item2, 0));
+    setTotal(subTotal + shipping)
+  }, [items, subTotal, total])
+
     return (
         <Fragment>
             <div className="container">
                 <div className="row">
                     <div className="col-sm cart">
-                        <Table /*items={items}*/     />
+                        <Table items={items}    />
                     </div>
                     <div className="col-sm-3 order-summary">
                         <ul className="list-group">
@@ -108,18 +114,15 @@ const CartPage = () => {
                             <li className="list-group-item">
                                 <ul className="list-group flex">
                                     <li className="text-left">Subtotal</li>
-                                    <li className="text-right">€</li>
-
-                                    {/* <li className="text-right">€{subTotal.toFixed(2)}</li> */}
+                                    <li className="text-right">€{subTotal.toFixed(2)}</li>
                                 </ul>
                                 <ul className="list-group flex">
                                     <li className="text-left">shipping</li>
-                                    <li className="text-right">€</li>
-                                    {/* <li className="text-right">€{shipping.toFixed(2)}</li> */}
+                                    <li className="text-right">€{shipping.toFixed(2)}</li>
                                 </ul>
                                 <ul className="list-group flex">
                                     <li className="coupon crimson">
-                                        <small>Add Coupon Code</small>
+                                        <small> >> Add Coupon Code</small>
                                     </li>
                                 </ul>
                             </li>
@@ -128,7 +131,7 @@ const CartPage = () => {
                                 <ul className="list-group flex">
                                     <li className="text-left">Total</li>
                                     <li className="text-right">€</li>
-                                    {/* <li className="text-right">€{subTotal == 0.00 ? "0.00" : total.toFixed(2)}</li> */}
+                                    <li className="text-right">€{subTotal == 0.00 ? shipping : total.toFixed(2)}</li>
                                 </ul>
                             </li>
                         </ul>

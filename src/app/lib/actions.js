@@ -17,15 +17,14 @@ export function addToCart(item, quantity) {
     }
 }
 
-export function updateCart(item, quantity) {
+export function updateCart(id, quantity) {
     return {
         type: actions.UPDATE_CART,
-        payload : { item: item, quantity}
+        payload : { id: id, quantity}
     }
 }
 
 export function removeFromCart(id) {
-    console.log("id from acrions" ,id)
     return {
         type: actions.REMOVE_FROM_CART,
         payload : id
