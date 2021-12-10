@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Navbar from "../../components/NavBar";
 import Footer from "../../components/Footer";
@@ -8,11 +8,11 @@ import "../../styles/app.css";
 import { list } from "../../data"
 
 
-const App = () => {
+const App = (props) => {
+  const { items, saveLocalStorage } = props;
   const [category, setCategory] = useState(0);
   const [isFiltering, setFiltering] = useState(false);
   const [isFiltered, setFilted] = useState(false);
-
   const filterResults = (input) => {
       let fullList = list.flat();
       let results = fullList.filter(item => {
@@ -22,6 +22,10 @@ const App = () => {
     })
     setFilted(results)
   }
+
+  useEffect(() => {
+    saveLocalStorage(items);
+  }, [items])
 
   return (
     <Fragment>

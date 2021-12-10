@@ -8,7 +8,6 @@ import { AppContainer } from "./app/views/containers"
 console.log(store.getState())
 const unsubscribe = store.subscribe(()=> console.log("Store => ", store.getState()))
 // store.dispatch(addToCart({name:"citron"}, 2))
-// store.dispatch(addToCart({name:"Kiwi"}, 5))
 unsubscribe()
 
 ReactDOM.render(

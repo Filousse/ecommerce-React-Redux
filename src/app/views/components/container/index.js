@@ -1,15 +1,14 @@
-import { connect } from "react-redux"
-import App from "../"
-import { addToCart, updateCart } from "../../../lib/actions"
+import { connect } from 'react-redux'
+import App  from '../components/index'
+import { saveCart } from '../../../lib/actions'
 
 export const AppContainer = connect(
-    function mapStateToProps(state) {
+    function mapStateToProps(state) { 
         return { items: state.items }
-    },
-    function mapDispatchToProps(dispatch) {
+    }, 
+    function mapDispatchToProps(dispatch) { 
         return {
-            onUpdateCart: (item, quantity) => dispatch(updateCart(item, quantity)),
-
+           saveLocalStorage: items =>  dispatch(saveCart(items))
         }
     }
 )(App)
