@@ -28,7 +28,6 @@ body {
     margin-top: 5px;
     font-weight: 600;
   }
-  /*ASTUCE: Important permets de rendre la propriété css accepter en prioritaire */
   .bg-light.orange {
     background: #ffc107!important;
   }

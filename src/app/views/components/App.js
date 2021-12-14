@@ -1,11 +1,16 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import UserProfileContextProvider from "../../lib/UserProfileContext";
 import Navbar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 import CartPage from "./Cart";
 import Home from "./Home";
+import Checkout from "./Checkout";
+import { Confirm } from "./Confirm";
+
 import "../../styles/app.css";
 import { list } from "../../data"
+
 
 
 const App = (props) => {
@@ -30,19 +35,24 @@ const App = (props) => {
   return (
     <Fragment>
       <Router>
-        <Navbar filter={filterResults} setFiltering={setFiltering} />
-        {/* routes */}
-        <Route exact path="/" component={() =>
-          <Home
-            category={category}
-            loadCategory={(i) => {setCategory(i)}}
-            list={list}
-            isFiltered={isFiltered}
-            isFiltering={isFiltering}
-          />}
-        />
-        <Route path="/cart" component={CartPage} />
-      </Router>
+        <UserProfileContextProvider>
+          <Navbar filter={filterResults} setFiltering={setFiltering} />
+          {/* routes */}
+          <Route exact path="/" component={() =>
+            <Home
+              category={category}
+              loadCategory={(i) => {setCategory(i)}}
+              list={list}
+              isFiltered={isFiltered}
+              isFiltering={isFiltering}
+            />}
+          />
+          <Route path="/cart" component={CartPage} />
+          <Route path="/checkout" component={Checkout} />
+          <Route path="/delivery" component={Confirm} />
+
+        </UserProfileContextProvider>
+      </Router>      
       <Footer />
     </Fragment>
   );

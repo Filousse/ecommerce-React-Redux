@@ -135,8 +135,7 @@ const CartPage = () => {
                                 </ul>
                             </li>
                         </ul>
-                        {/* <Link to="/checkout" className={`white btn btn-light btn-lg btn-block checkout ${!items.length && 'disabled'} bg-crimson`}> */}
-                        <Link to="/checkout" className={`white btn btn-light btn-lg btn-block checkout bg-crimson`}>
+                        <Link to="/checkout" className={`white btn btn-light btn-lg btn-block checkout bg-crimson ${!items.length && 'disabled'}`}>
                             Checkout
                       </Link>
                     </div>
